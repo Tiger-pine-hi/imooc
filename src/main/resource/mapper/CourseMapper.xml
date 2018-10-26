@@ -77,6 +77,12 @@
     where cname = #{cname,jdbcType=VARCHAR}
   </delete>
 
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_course
+  </select>
+
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -22,7 +22,7 @@ public interface RoleMapper {
      * @param rphone
      * @return
      */
-    List<Role> selectByPhone(String rphone);
+    Role selectByPhone(String rphone);
 
     /**
      * 按类型查找角色

@@ -6,15 +6,15 @@
 
   <display-name>imooc</display-name>
 
-<!--  &lt;!&ndash; 启动页面 &ndash;&gt;
-  <welcome-file-list>
-    <welcome-file>/WEB-INF/jsp/main.jsp</welcome-file>
-  </welcome-file-list>-->
-
   <!-- 启动页面 -->
   <welcome-file-list>
-    <welcome-file>registered.jsp</welcome-file>
+    <welcome-file>/WEB-INF/jsp/main.jsp</welcome-file>
   </welcome-file-list>
+
+  <!--&lt;!&ndash; 启动页面 &ndash;&gt;
+  <welcome-file-list>
+    <welcome-file>registered.jsp</welcome-file>
+  </welcome-file-list>-->
 
   <!-- 1、启动Spring的容器 -->
   <!-- needed for ContextLoaderListener -->

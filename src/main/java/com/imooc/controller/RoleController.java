@@ -4,49 +4,44 @@ package com.imooc.controller;
 import com.imooc.bean.Role;
 import com.imooc.service.RoleService;
 import com.imooc.util.JsonMsg;
-import com.imooc.util.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Controller
-@RequestMapping(value = "/Login_Reg")
 public class RoleController {
 
     @Autowired
     RoleService roleService;
 
-    @RequestMapping(value = "/doReg", method = RequestMethod.POST)
+    /**
+     * 检验手机号是否存在，存在就不能注册
+     *
+     * @param phone
+     * @return
+     */
     @ResponseBody
-    public JsonMsg doReg(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        Integer rtype = Integer.valueOf(request.getParameter("rtype"));
-        String rphone = request.getParameter("rphone");
-        String rpassword = request.getParameter("upassword");
-        System.out.println("类型："+rtype+" 账号："+rphone +" 密码："+rpassword);
-        if(rphone == "" || rpassword == ""){
-            System.out.println("--------------------------------");
-            session.setAttribute("flag","注册失败");
-            return JsonMsg.fail();
+    @RequestMapping(value = "/checkRoleByPhone", method = RequestMethod.POST)
+    public JsonMsg checkUserByPhone(@RequestParam("phone") String phone) {
+        String phone_format = "(^[1][3,5,7,8][0-9]{9}$)";
+        if (!phone.matches(phone_format)) {
+            System.out.println(phone);
+            System.out.println("格式错误");
+            return JsonMsg.fail().addInfo("phone_va_msg", "请输入正确的手机账号");
+        }
+        //数据库账号重复校验
+        Role role = roleService.selectRoleByPhone(phone);
+        if (role == null) {
+            //System.out.println("不存在，可注册不可登录");
+            return JsonMsg.success().addInfo("phone_va_msg", "该账号不存在");
         }else {
-            String Md5_pwd = Md5.EncoderByMd5(rpassword);
-            System.out.println("哈希码：" + Md5_pwd);
-            Role role = new Role();
-            role.setRtype(rtype);
-            role.setRpassword(Md5_pwd);
-            roleService.addRole(role);
-            System.out.println("添加成功");
-            return JsonMsg.success();
+            //System.out.println("存在,可登录不可注册");
+            return JsonMsg.fail().addInfo("phone_va_msg", "该账号已被注册");
         }
     }
 

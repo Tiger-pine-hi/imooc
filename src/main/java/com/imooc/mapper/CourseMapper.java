@@ -29,6 +29,12 @@ public interface CourseMapper {
     /*---------------------查---------------------*/
 
     /**
+     * 查询所有课程
+     * @return
+     */
+    List<Course> selectAll();
+
+    /**
      * 根据课程名字查询
      * @param cname
      * @return

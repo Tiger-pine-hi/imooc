@@ -70,6 +70,15 @@ public class Dao_Test {
         rr.display();
         rr.setRintroduce("我是测试人员");
         roleMapper.updateByPrimaryKeySelective(rr);
+
+
+            Role role = roleMapper.selectByPhone("18011011010");
+            if(role == null) {
+                System.out.println("不存在，可注册不可登录");
+            }else {
+                role.display();
+                System.out.println("存在,可登录不可注册");
+            }
         System.out.println("bye-bye");
     }
 
@@ -79,6 +88,11 @@ public class Dao_Test {
         System.out.println("hello");
         List<Course> r = courseMapper.selectByName("Java进阶");
         r.get(0).display();
+
+        r = courseMapper.selectAll();
+        for (int i = 0;i < r.size();i++){
+            r.get(i).display();
+        }
         System.out.println("bye-bye");
     }
 

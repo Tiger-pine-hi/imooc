@@ -22,11 +22,11 @@ public class RoleService {
     }
 
     /**
-     * 根据手机号返回角色结果集
+     * 根据手机号返回角色结果
      * @param rphone
      * @return
      */
-    public List<Role> selectRoleByPhone(String rphone){
+    public Role selectRoleByPhone(String rphone){
         return roleMapper.selectByPhone(rphone);
     }
 

@@ -10,7 +10,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>  
 <head>  
-    <script type="text/javascript" src="${PATH}/static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="${PATH}/static/others/jquery-1.12.4.min.js"></script>
     <title>文件上传下载</title>  
     <%--<script type="text/javascript" src="js/testUpDataPicture.js"></script>--%>
     <script>

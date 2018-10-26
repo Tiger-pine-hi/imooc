@@ -32,6 +32,14 @@ public class CourseService{
     }
 
     /**
+     * 返回所有课程结果集
+     * @return
+     */
+    public List<Course> selectAllCourse(){
+        return courseMapper.selectAll();
+    }
+
+    /**
      * 根据课程名返回课程结果集
      * @param cname
      * @return
